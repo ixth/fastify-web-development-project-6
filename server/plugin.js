@@ -46,7 +46,7 @@ const setUpViews = (app) => {
   });
 
   app.decorateReply('render', function render(viewPath, locals) {
-    this.view(viewPath, { ...locals, reply: this });
+    return this.view(viewPath, { ...locals, reply: this });
   });
 };
 
@@ -103,7 +103,7 @@ const registerPlugins = async (app) => {
     'form',
     {
       failureRedirect: app.reverse('root'),
-      failureFlash: i18next.t('flash.authError'),
+      failureFlash: i18next.t('entities.session.required'),
     },
   // @ts-ignore
   )(...args));

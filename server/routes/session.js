@@ -15,19 +15,19 @@ export default (app) => {
       if (!user) {
         const signInForm = req.body.data;
         const errors = {
-          email: [{ message: i18next.t('flash.session.create.error') }],
+          email: [{ message: i18next.t('features.session.create.error') }],
         };
         reply.render('session/new', { signInForm, errors });
         return reply;
       }
       await req.logIn(user);
-      req.flash('success', i18next.t('flash.session.create.success'));
+      req.flash('success', i18next.t('features.session.create.success'));
       reply.redirect(app.reverse('root'));
       return reply;
     }))
     .delete('/session', (req, reply) => {
       req.logOut();
-      req.flash('info', i18next.t('flash.session.delete.success'));
+      req.flash('info', i18next.t('features.session.delete.success'));
       reply.redirect(app.reverse('root'));
     });
 };

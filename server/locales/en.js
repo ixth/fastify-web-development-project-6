@@ -2,8 +2,30 @@
 
 export default {
   translation: {
-    appName: 'Fastify Boilerplate',
-    flash: {
+    common: {
+      appName: 'Task manager',
+      actions: 'Actions',
+      buttons: {
+        create: 'Create',
+        edit: 'Edit',
+        delete: 'Delete',
+        save: 'Save',
+      },
+    },
+    entities: {
+      session: {
+        required: 'Access denied! Please login',
+      },
+      user: {
+        fields: {
+          id: 'ID',
+          email: 'Email',
+          password: 'Password',
+          createdAt: 'Created at',
+        },
+      },
+    },
+    features: {
       session: {
         create: {
           success: 'You are logged in',
@@ -13,13 +35,20 @@ export default {
           success: 'You are logged out',
         },
       },
-      users: {
+      user: {
         create: {
           error: 'Failed to register',
           success: 'User registered successfully',
         },
+        update: {
+          error: 'Failed to edit user',
+          success: 'User updated successfully',
+        },
+        delete: {
+          error: 'Failed to delete user',
+          success: 'User deleted successfully',
+        },
       },
-      authError: 'Access denied! Please login',
     },
     layouts: {
       application: {
@@ -32,17 +61,21 @@ export default {
     views: {
       session: {
         new: {
-          signIn: 'Login',
+          title: 'Login',
           submit: 'Login',
         },
       },
       users: {
-        id: 'ID',
-        email: 'Email',
-        createdAt: 'Created at',
+        index: {
+          title: 'Users',
+        },
         new: {
+          title: 'Register',
           submit: 'Register',
-          signUp: 'Register',
+        },
+        edit: {
+          title: 'Edit user',
+          submit: 'Save',
         },
       },
       welcome: {

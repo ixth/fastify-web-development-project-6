@@ -2,8 +2,30 @@
 
 export default {
   translation: {
-    appName: 'Fastify Шаблон',
-    flash: {
+    common: {
+      appName: 'Менеджер задач',
+      actions: 'Действия',
+      buttons: {
+        create: 'Создать',
+        edit: 'Изменить',
+        delete: 'Удалить',
+        save: 'Сохранить',
+      },
+    },
+    entities: {
+      session: {
+        required: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
+      },
+      user: {
+        fields: {
+          id: 'ID',
+          email: 'Email',
+          password: 'Пароль',
+          createdAt: 'Дата создания',
+        },
+      },
+    },
+    features: {
       session: {
         create: {
           success: 'Вы залогинены',
@@ -13,13 +35,20 @@ export default {
           success: 'Вы разлогинены',
         },
       },
-      users: {
+      user: {
         create: {
           error: 'Не удалось зарегистрировать',
           success: 'Пользователь успешно зарегистрирован',
         },
+        update: {
+          error: 'Не удалось отредактировать пользователя',
+          success: 'Пользователь успешно отредактирован',
+        },
+        delete: {
+          error: 'Не удалось удалить пользователя',
+          success: 'Пользователь успешно удалён',
+        },
       },
-      authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
     },
     layouts: {
       application: {
@@ -32,17 +61,21 @@ export default {
     views: {
       session: {
         new: {
-          signIn: 'Вход',
+          title: 'Вход',
           submit: 'Войти',
         },
       },
       users: {
-        id: 'ID',
-        email: 'Email',
-        createdAt: 'Дата создания',
+        index: {
+          title: 'Пользователи',
+        },
         new: {
+          title: 'Регистрация',
           submit: 'Сохранить',
-          signUp: 'Регистрация',
+        },
+        edit: {
+          title: 'Изменение пользователя',
+          submit: 'Изменить',
         },
       },
       welcome: {

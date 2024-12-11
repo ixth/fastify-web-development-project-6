@@ -1,15 +1,24 @@
 extends ../layouts/application.pug
 
+block header
+  = t('views.users.index.title')
+
 block content
-  table.table.table-striped
-    thead
-      tr
-        th= t('views.users.id')
-        th= t('views.users.email')
-        th= t('views.users.createdAt')
-    tbody
-      each user in users
+  .table-responsive
+    table.table.table-borderless.table-striped.mt-5.bg-white
+      thead
         tr
-          td= user.id
-          td= user.email
-          td= formatDate(user.createdAt)
+          th= t('entities.user.fields.id')
+          th= t('entities.user.fields.email')
+          th= t('entities.user.fields.createdAt')
+          th= t('common.actions')
+      tbody
+        each user in users
+          tr
+            td= user.id
+            td= user.email
+            td= formatDate(user.createdAt)
+            td
+              .d-flex.flex-wrap
+                a(href=route('editUser', { id: user.id }) class='btn btn-primary me-1')= t('common.buttons.edit')
+                +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class='btn btn-danger' value=t('common.buttons.delete'))
