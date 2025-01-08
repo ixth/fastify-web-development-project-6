@@ -19,7 +19,7 @@ export default (app) => {
       const user = await User.query().findById(id);
       if (!user) {
         req.flash('error', i18next.t('features.user.update.error'));
-        return reply.redirect(app.reverse('users'));
+        return reply.code(404).redirect(app.reverse('users'));
       }
 
       const { data } = req.body;
@@ -29,7 +29,7 @@ export default (app) => {
         reply.redirect(app.reverse('users'));
       } catch (error) {
         req.flash('error', i18next.t('features.user.update.error'));
-        reply.render('users/edit', { user: data, errors: error.data });
+        reply.code(400).render('users/edit', { user: data, errors: error.data });
       }
       return reply;
     })
@@ -57,7 +57,7 @@ export default (app) => {
         reply.redirect(app.reverse('root'));
       } catch (error) {
         req.flash('error', i18next.t('features.user.create.error'));
-        reply.render('users/new', { user: data, errors: error.data });
+        reply.code(400).render('users/new', { user: data, errors: error.data });
       }
       return reply;
     });
