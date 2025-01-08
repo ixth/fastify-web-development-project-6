@@ -1,6 +1,5 @@
 // @ts-check
 
-import _ from 'lodash';
 import fastify from 'fastify';
 
 import init from '../server/plugin.js';
@@ -21,16 +20,19 @@ describe('test users CRUD', () => {
     await init(app);
     knex = app.objection.knex;
     models = app.objection.models;
+  });
 
-    // TODO: пока один раз перед тестами
-    // тесты не должны зависеть друг от друга
-    // перед каждым тестом выполняем миграции
-    // и заполняем БД тестовыми данными
+  afterAll(async () => {
+    await app.close();
+  });
+
+  beforeEach(async () => {
     await knex.migrate.latest();
     await prepareData(app);
   });
 
-  beforeEach(async () => {
+  afterEach(async () => {
+    await knex.migrate.rollback();
   });
 
   it('index', async () => {
@@ -60,23 +62,13 @@ describe('test users CRUD', () => {
         data: params,
       },
     });
-
     expect(response.statusCode).toBe(302);
-    const expected = {
-      ..._.omit(params, 'password'),
-      passwordDigest: encrypt(params.password),
-    };
+
+    const { password, ...userParams } = params;
     const user = await models.user.query().findOne({ email: params.email });
-    expect(user).toMatchObject(expected);
-  });
-
-  afterEach(async () => {
-    // Пока Segmentation fault: 11
-    // после каждого теста откатываем миграции
-    // await knex.migrate.rollback();
-  });
-
-  afterAll(async () => {
-    await app.close();
+    expect(user).toMatchObject({
+      ...userParams,
+      passwordDigest: encrypt(params.password),
+    });
   });
 });
