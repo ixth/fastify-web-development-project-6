@@ -24,12 +24,12 @@ export default (app) => {
 
       const { data } = req.body;
       try {
-        await User.query().patch(data);
+        await user.$query().patch(data);
         req.flash('success', i18next.t('features.user.update.success'));
         reply.redirect(app.reverse('users'));
       } catch (error) {
         req.flash('error', i18next.t('features.user.update.error'));
-        reply.code(400).render('users/edit', { user: data, errors: error.data });
+        reply.code(400).render('users/edit', { user: { ...data, id }, errors: error.data });
       }
       return reply;
     })
