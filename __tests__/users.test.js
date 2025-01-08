@@ -6,7 +6,7 @@ import init from '../server/plugin.js';
 import encrypt from '../server/lib/secure.cjs';
 import { getTestData, prepareData } from './helpers/index.js';
 
-describe('test users CRUD', () => {
+describe('Users CRUD', () => {
   let app;
   let knex;
   let models;
@@ -18,8 +18,7 @@ describe('test users CRUD', () => {
       logger: { target: 'pino-pretty' },
     });
     await init(app);
-    knex = app.objection.knex;
-    models = app.objection.models;
+    ({ knex, models } = app.objection);
   });
 
   afterAll(async () => {
@@ -35,7 +34,7 @@ describe('test users CRUD', () => {
     await knex.migrate.rollback();
   });
 
-  it('index', async () => {
+  it('serves index page', async () => {
     const response = await app.inject({
       method: 'GET',
       url: app.reverse('users'),
@@ -44,7 +43,7 @@ describe('test users CRUD', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it('new', async () => {
+  it('serves registration page', async () => {
     const response = await app.inject({
       method: 'GET',
       url: app.reverse('newUser'),
@@ -53,7 +52,7 @@ describe('test users CRUD', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it('create', async () => {
+  it('creates user', async () => {
     const params = testData.users.new;
     const response = await app.inject({
       method: 'POST',
@@ -63,12 +62,37 @@ describe('test users CRUD', () => {
       },
     });
     expect(response.statusCode).toBe(302);
+    expect(response.headers.location).toBe(app.reverse('root'));
 
-    const { password, ...userParams } = params;
     const user = await models.user.query().findOne({ email: params.email });
+    const { password, ...userParams } = params;
     expect(user).toMatchObject({
       ...userParams,
       passwordDigest: encrypt(params.password),
     });
+  });
+
+  it('fails to create existing user', async () => {
+    const params = testData.users.existing;
+    const response = await app.inject({
+      method: 'POST',
+      url: app.reverse('users'),
+      payload: {
+        data: params,
+      },
+    });
+    expect(response.statusCode).toBe(400);
+  });
+
+  it('fails to create user with invalid data', async () => {
+    const params = testData.users.invalid;
+    const response = await app.inject({
+      method: 'POST',
+      url: app.reverse('users'),
+      payload: {
+        data: params,
+      },
+    });
+    expect(response.statusCode).toBe(400);
   });
 });

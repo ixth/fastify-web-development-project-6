@@ -11,6 +11,12 @@
       "lastName": "kulas",
       "email": "lawrence.kulas87@outlook.com",
       "password": "O6AvLIQL1cbzrre"
+    },
+    "invalid": {
+      "firstName": "diego",
+      "lastName": "velasquez",
+      "email": "diego.velasquez@example.com",
+      "password": ""
     }
   }
 }
