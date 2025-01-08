@@ -4,7 +4,6 @@ export default {
   translation: {
     common: {
       appName: 'Task manager',
-      actions: 'Actions',
       buttons: {
         create: 'Create',
         edit: 'Edit',
@@ -19,6 +18,8 @@ export default {
       user: {
         fields: {
           id: 'ID',
+          firstName: 'First Name',
+          lastName: 'Last Name',
           email: 'Email',
           password: 'Password',
           createdAt: 'Created at',
@@ -47,6 +48,17 @@ export default {
         delete: {
           error: 'Failed to delete user',
           success: 'User deleted successfully',
+        },
+      },
+    },
+    widgets: {
+      userTable: {
+        header: {
+          id: 'ID',
+          name: 'Full Name',
+          email: 'Email',
+          createdAt: 'Created at',
+          actions: 'Actions',
         },
       },
     },

@@ -27,8 +27,6 @@ export default (app) => ({
         throw new Error(`Unknown flash type: '${type}'`);
     }
   },
-  formatDate(str) {
-    const date = new Date(str);
-    return date.toLocaleString();
-  },
+  formatName: (user) => [user.firstName, user.lastName].filter((value) => value).join(' '),
+  formatDate: (str) => new Date(str).toLocaleString(),
 });

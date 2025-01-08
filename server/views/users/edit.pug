@@ -5,6 +5,8 @@ block header
 
 block content
   +formFor()(action=route('patchUser', { id: String(user.id) }) method='post')
+    +input(user, 'firstName', errors)(type='text' placeholder=t('entities.user.fields.firstName'))
+    +input(user, 'lastName', errors)(type='text' placeholder=t('entities.user.fields.lastName'))
     +input(user, 'email', errors)(type='text' placeholder=t('entities.user.fields.email'))
     +input(user, 'password', errors)(type='password' placeholder=t('entities.user.fields.password'))
     input(name='_method' type='hidden' value='patch')

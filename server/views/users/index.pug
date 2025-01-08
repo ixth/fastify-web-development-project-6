@@ -8,14 +8,16 @@ block content
     table.table.table-borderless.table-striped.mt-5.bg-white
       thead
         tr
-          th= t('entities.user.fields.id')
-          th= t('entities.user.fields.email')
-          th= t('entities.user.fields.createdAt')
-          th= t('common.actions')
+          th= t('widgets.userTable.header.id')
+          th= t('widgets.userTable.header.name')
+          th= t('widgets.userTable.header.email')
+          th= t('widgets.userTable.header.createdAt')
+          th= t('widgets.userTable.header.actions')
       tbody
         each user in users
           tr
             td= user.id
+            td= formatName(user)
             td= user.email
             td= formatDate(user.createdAt)
             td

@@ -10,6 +10,8 @@ block content
         .card-body.row.p-5
           .col-12.col-md-6.offset-md-6.mt-3.mt-mb-0
             +formFor()(action=route('users') method='post')
+              +input(user, 'firstName', errors)(type='text' placeholder=t('entities.user.fields.firstName'))
+              +input(user, 'lastName', errors)(type='text' placeholder=t('entities.user.fields.lastName'))
               +input(user, 'email', errors)(type='text' placeholder=t('entities.user.fields.email'))
               +input(user, 'password', errors)(type='password' placeholder=t('entities.user.fields.password'))
               +submit(user)(value=t('views.users.new.submit'))

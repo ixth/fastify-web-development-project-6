@@ -4,7 +4,6 @@ export default {
   translation: {
     common: {
       appName: 'Менеджер задач',
-      actions: 'Действия',
       buttons: {
         create: 'Создать',
         edit: 'Изменить',
@@ -19,6 +18,8 @@ export default {
       user: {
         fields: {
           id: 'ID',
+          firstName: 'Имя',
+          lastName: 'Фамилия',
           email: 'Email',
           password: 'Пароль',
           createdAt: 'Дата создания',
@@ -47,6 +48,17 @@ export default {
         delete: {
           error: 'Не удалось удалить пользователя',
           success: 'Пользователь успешно удалён',
+        },
+      },
+    },
+    widgets: {
+      userTable: {
+        header: {
+          id: 'ID',
+          name: 'Полное имя',
+          email: 'Email',
+          createdAt: 'Дата создания',
+          actions: 'Действия',
         },
       },
     },
