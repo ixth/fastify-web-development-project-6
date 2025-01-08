@@ -14,7 +14,7 @@ export default (app) => {
       const user = new User();
       return reply.render('users/new', { user });
     })
-    .patch('/users/:id', { name: 'patchUser' }, async (req, reply) => {
+    .patch('/users/:id', { name: 'patchUser', preValidation: app.authenticate }, async (req, reply) => {
       const { id } = req.params;
       const user = await User.query().findById(id);
       if (!user) {
@@ -33,7 +33,7 @@ export default (app) => {
       }
       return reply;
     })
-    .delete('/users/:id', { name: 'deleteUser' }, async (req, reply) => {
+    .delete('/users/:id', { name: 'deleteUser', preValidation: app.authenticate }, async (req, reply) => {
       const { id } = req.params;
       try {
         await User.query().findById(id).delete();
@@ -44,7 +44,7 @@ export default (app) => {
         reply.redirect(app.reverse('users'));
       }
     })
-    .get('/users/:id/edit', { name: 'editUser' }, async (req, reply) => {
+    .get('/users/:id/edit', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {
       const { id } = req.params;
       const user = await User.query().findById(id);
       return reply.render('users/edit', { user });
